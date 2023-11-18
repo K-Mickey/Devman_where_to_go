@@ -1,5 +1,8 @@
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404
 import json
+
+from .models import Place
 
 
 def home_view(request):
@@ -10,27 +13,36 @@ def home_view(request):
                 "type": "Feature",
                 "geometry": {
                     "type": "Point",
-                    "coordinates": [37.62, 55.793676]
+                    "coordinates": [place.lng, place.lat]
                 },
                 "properties": {
-                    "title": "«Легенды Москвы",
-                    "placeId": "moscow_legends",
+                    "title": place.title,
+                    "placeId": place.pk,
                     "detailsUrl": "./static/places/moscow_legends.json"
                 }
-            },
-            {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [37.64, 55.753676]
-                },
-                "properties": {
-                    "title": "Крыши24.рф",
-                    "placeId": "roofs24",
-                    "detailsUrl": "./static/places/roofs24.json"
-                }
-            }
+            } for place in Place.objects.all()
         ]
     }
     context = {"places_data": json.dumps(data)}
     return render(request, 'index.html', context=context)
+
+
+def place_view(request, place_id):
+    place = get_object_or_404(Place, pk=place_id)
+    place_data = {
+        'title': place.title,
+        'imgs': [image.img.url for image in place.image_set.all()],
+        'description_short': place.description_short,
+        'description_long': place.description_long,
+        'coordinates': {
+            'lat': place.lat,
+            'lng': place.lng
+        }
+    }
+    return JsonResponse(
+        data=place_data,
+        json_dumps_params={
+            'ensure_ascii': False,
+            'indent': 2
+        }
+    )
