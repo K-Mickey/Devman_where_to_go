@@ -7,7 +7,7 @@
 
 Просмотр проекта доступен на сайте [pythonanywhere](http://kmickey2.pythonanywhere.com)
 
-Добавление элементов возможноно через его [админку](http://kmickey2.pythonanywhere.com/admin)
+Добавление элементов возможно через его [админку](http://kmickey2.pythonanywhere.com/admin)
 
 ## Требования
 - Python
