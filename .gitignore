@@ -1,6 +1,6 @@
-/where_to_go/static/
 /where_to_go/media/
 /where_to_go/places/migrations/
 /where_to_go/.env
 db.sqlite3
 .idea
+/where_to_go/staticfiles/
