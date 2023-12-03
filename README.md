@@ -42,13 +42,40 @@ pip install -r requrements.txt
 
 Проведите миграцию БД
 ```
+python3 manage.py makemigrations
 python3 manage.py migrate
 ```
 Запустите сервер
 ```
 python3 manage.py runserver
 ```
-Сайт будет запущен локально по адресу http://127.0.0.1:8000. Локации создаются через панель администрирования. Для входа в неё неоходимо создать суперюзера
+Сайт будет запущен локально по адресу http://127.0.0.1:8000.
+## Добавление данных
+Локации создаются через панель администрирования. Для входа в неё неоходимо заранее создать суперюзера
 ```
 python3 manage.py createsuperuser
+```
+Также можно загружать точки интереса через терминал. Для этого необходимо использовать функцию `load_place` для быстрой загрузки поля места из ссылки на JSON файл.
+```
+python3 manage.py load_place <link>
+```
+Содержимое файла JSON должно иметь вид:
+```json
+{
+    "title": "Генератор Маркса или «Катушка Тесла»",
+    "imgs": [
+        "https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/media/d3b5cc74cc94c802b51c85542b2f9ad5.jpg",
+        "https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/media/b742b82f77028d6a8c9be681cab25a3d.jpg",
+        "https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/media/57f990fd24a55324fc1fc541cac41b99.jpg",
+        "https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/media/2d5be0d4e83fdde3e8c98f18e0d2e365.jpg",
+        "https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/media/d4a8ab43eff1f7e83491610682d13984.jpg",
+        "https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/media/7945e1e565530ab6943c40d64f21cfb7.jpg"
+    ],
+    "description_short": "Место, в котором рождаются искусственные молнии и облака.",
+    "description_long": "<p>Внешний вид этого монстроподобного, внушительного комплекса заставляет сердца посетителей биться чаще, а некоторое сходство с катушкой Тесла (на самом деле это генератор Аркадьева-Маркса) влечёт сюда всех любителей научпопа, индастриала и других интересующихся. Для того, чтобы попасть на территорию действующего испытательного стенда ВНИЦ ВЭИ, коим и является это окутанное мифами место, рекомендуется договориться с охраной. Несанкционированное попадание в пределы испытаний может повлечь самые серьёзные последствия!</p>",
+    "coordinates": {
+        "lng": "36.88324860715219",
+        "lat": "55.92555463090268"
+    }
+}
 ```
