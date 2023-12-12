@@ -26,6 +26,8 @@ git clone https://gihub.com/K-Mickey/Devman_where_to_go.git
 ```
 cd where_to_go
 ```
+Проверьте и при необходимости установите Python 3.11
+
 Создайте и активируйте виртуальное окружение
 ```
 python3 -m venv <name>
