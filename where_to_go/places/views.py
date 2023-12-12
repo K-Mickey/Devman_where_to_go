@@ -33,9 +33,9 @@ def place_view(request, place_id):
     place = get_object_or_404(Place, pk=place_id)
     place_data = {
         'title': place.title,
-        'imgs': [image.img.url for image in place.image_set.all()],
-        'description_short': place.description_short,
-        'description_long': place.description_long,
+        'imgs': [image.img.url for image in place.images.all()],
+        'short_description': place.short_description,
+        'long_description': place.long_description,
         'coordinates': {
             'lat': place.lat,
             'lng': place.lng

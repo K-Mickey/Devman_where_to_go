@@ -20,8 +20,8 @@ class Command(BaseCommand):
         place_model, place_created = Place.objects.get_or_create(
             title=json_data['title'],
             defaults={
-                'description_short': json_data['description_short'],
-                'description_long': json_data['description_long'],
+                'short_description': json_data['description_short'],
+                'long_description': json_data['description_long'],
                 'lng': json_data['coordinates']['lng'],
                 'lat': json_data['coordinates']['lat']
             }
