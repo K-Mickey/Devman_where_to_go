@@ -13,7 +13,6 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     ]
     readonly_fields = ['get_img_preview']
 
-
     def get_img_preview(self, image):
         return format_html(
             '<img src="{url}" style="max-height: 200px; max-width: 200px"/>',
@@ -25,7 +24,8 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
 class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     inlines = (ImageInline, )
     search_fields = ['title']
-    autocomplete_fields = ['images']
 
 
-admin.site.register(Image)
+@admin.register(Image)
+class Image(admin.ModelAdmin):
+    autocomplete_fields = ['place']
