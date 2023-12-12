@@ -9,23 +9,23 @@ from .models import Place
 
 def home_view(request):
     data = {
-        "type": "FeatureCollection",
-        "features": [
+        'type': 'FeatureCollection',
+        'features': [
             {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [place.lng, place.lat]
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [place.lng, place.lat]
                 },
-                "properties": {
-                    "title": place.title,
-                    "placeId": place.pk,
-                    "detailsUrl": reverse('place_view', args=[place.pk]),
+                'properties': {
+                    'title': place.title,
+                    'placeId': place.pk,
+                    'detailsUrl': reverse('place_view', args=[place.pk]),
                 }
             } for place in Place.objects.all()
         ]
     }
-    context = {"places_data": json.dumps(data)}
+    context = {'places_data': json.dumps(data)}
     return render(request, 'index.html', context=context)
 
 

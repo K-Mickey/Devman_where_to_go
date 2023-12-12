@@ -8,10 +8,10 @@ from .models import Place, Image
 class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
     fields = [
-        "img",
-        "image_preview",
+        'img',
+        'image_preview',
     ]
-    readonly_fields = ["image_preview"]
+    readonly_fields = ['image_preview']
 
     def image_preview(self, obj):
         return format_html(
@@ -25,5 +25,6 @@ class PlaceAdmin(SortableAdminBase, admin.ModelAdmin):
     inlines = (ImageInline, )
 
     search_fields = ['title']
+
 
 admin.site.register(Image)
