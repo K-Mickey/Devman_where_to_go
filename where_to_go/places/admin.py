@@ -9,11 +9,11 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Image
     fields = [
         'img',
-        'image_preview',
+        'get_img_preview',
     ]
-    readonly_fields = ['image_preview']
+    readonly_fields = ['get_img_preview']
 
-    def image_preview(self, obj):
+    def get_img_preview(self, obj):
         return format_html(
             '<img src="{url}" style="max-height: 200px;"/>',
             url=obj.img.url
