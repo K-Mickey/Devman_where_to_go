@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import requests
 from django.core.files.base import ContentFile
 from django.core.management import BaseCommand
@@ -12,8 +14,16 @@ class Command(BaseCommand):
         parser.add_argument('link', type=str, action='store')
 
     def handle(self, *args, **kwargs):
-        link = kwargs['link']
-        response = requests.get(link.strip())
+        link = Path(kwargs['link'])
+        if link.is_file():
+            links = link.read_text('utf-8').splitlines()
+            for link in links:
+                self.load_place(link)
+        else:
+            self.load_place(link)
+
+    def load_place(self, link):
+        response = requests.get(link)
         response.raise_for_status()
 
         json_raw = response.json()
