@@ -26,7 +26,7 @@ git clone https://gihub.com/K-Mickey/Devman_where_to_go.git
 ```
 cd where_to_go
 ```
-Проверьте и при необходимости установите Python 3.11
+Проверьте и при необходимости установите Python 3.10
 
 Создайте и активируйте виртуальное окружение
 ```
@@ -80,4 +80,8 @@ python3 manage.py load_place <link>
         "lat": "55.92555463090268"
     }
 }
+```
+Есть возможность загрузить начальные локации командой
+```
+python3 manage.py load_place place_links.txt
 ```
