@@ -26,18 +26,18 @@ class Command(BaseCommand):
         response = requests.get(link)
         response.raise_for_status()
 
-        json_raw = response.json()
+        place_serialized = response.json()
         place_model, place_created = Place.objects.get_or_create(
-            title=json_raw['title'],
+            title=place_serialized['title'],
             defaults={
-                'short_description': json_raw['description_short'],
-                'long_description': json_raw['description_long'],
-                'lng': json_raw['coordinates']['lng'],
-                'lat': json_raw['coordinates']['lat']
+                'short_description': place_serialized['description_short'],
+                'long_description': place_serialized['description_long'],
+                'lng': place_serialized['coordinates']['lng'],
+                'lat': place_serialized['coordinates']['lat']
             }
         )
         if place_created:
-            self.add_images(json_raw['imgs'], place_model)
+            self.add_images(place_serialized['imgs'], place_model)
             self.stdout.write(f'Created place {place_model}')
         else:
             self.stdout.write(f'Place {place_model} already exists')
