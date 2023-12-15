@@ -1,7 +1,7 @@
 import json
 
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from .models import Place
@@ -33,7 +33,7 @@ def form_place_json(place):
 
 
 def place_view(request, place_id):
-    place = Place.objects.prefetch_related('images').get(pk=place_id)
+    place = get_object_or_404(Place.objects.prefetch_related('images'), pk=place_id)
     place_serialize = {
         "title": place.title,
         "imgs": [image.img.url for image in place.images.all()],
