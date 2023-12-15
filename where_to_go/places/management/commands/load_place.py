@@ -37,22 +37,22 @@ class Command(BaseCommand):
             }
         )
         if place_created:
-            self.add_images(place_serialized['imgs'], place_model)
+            for position, img_link in enumerate(place_serialized['imgs']):
+                download_image_to_db(place_model, position, img_link)
+
             self.stdout.write(f'Created place {place_model}')
         else:
             self.stdout.write(f'Place {place_model} already exists')
 
-    @staticmethod
-    def add_images(images, place_model):
-        for position, img in enumerate(images):
-            img_name = img.split('/')[-1]
-            image_model, img_created = Image.objects.get_or_create(
-                img=img_name,
-                place=place_model,
-                position=position
-            )
-            if img_created:
-                image_model.img.save(
-                    img_name,
-                    ContentFile(requests.get(img).content),
-                    save=True)
+
+def download_image_to_db(place_model, position, img_link):
+    img_name = img_link.split('/')[-1]
+
+    response_img = requests.get(img_link)
+    response_img.raise_for_status()
+
+    Image.objects.get_or_create(
+        ContentFile(content=response_img.content, name=img_name),
+        place=place_model,
+        position=position,
+    )
